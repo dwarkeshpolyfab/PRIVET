@@ -1525,6 +1525,10 @@ function renderReportCard() {
 }
 
 // ---- Achievements View ----
+function initAchievementsView() {
+    refreshAchievementsScreen();
+}
+
 function refreshAchievementsScreen() {
     const curLevelObj = LEVELS[gameState.level - 1] || LEVELS[0];
     const nextLevelObj = LEVELS[gameState.level] || LEVELS[LEVELS.length - 1];
