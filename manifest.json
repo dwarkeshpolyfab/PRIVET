@@ -1,0 +1,19 @@
+{
+    "name": "DayPilot - Daily Success System",
+    "short_name": "DayPilot",
+    "description": "Structure your day, track progress, level up your career. Morning planning, evening review, weekly analytics & gamification.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0a0a1a",
+    "theme_color": "#0a0a1a",
+    "orientation": "portrait",
+    "categories": ["productivity", "business", "lifestyle"],
+    "icons": [
+        {
+            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        }
+    ]
+}

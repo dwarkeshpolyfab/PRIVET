@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DayPilot v2 - Your Daily Success System</title>
+    <meta name="description" content="Structure your day, track progress, level up your career. Morning planning, evening review, weekly analytics & gamification.">
+    <meta name="theme-color" content="#0a0a1a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== SPLASH SCREEN ===== -->
+<div id="splash" class="splash">
+    <div class="splash-inner">
+        <div class="splash-rocket">🚀</div>
+        <h1 class="splash-title">DayPilot</h1>
+        <p class="splash-tag">Your Daily Success System</p>
+        <div class="splash-bar"><div class="splash-bar-fill"></div></div>
+    </div>
+</div>
+
+<!-- ===== INSTALL BANNER ===== -->
+<div id="install-banner" class="install-banner" style="display:none;">
+    <div class="install-banner-inner">
+        <span class="install-icon">📱</span>
+        <div class="install-text">
+            <strong>Install DayPilot</strong>
+            <span>Add to home screen for the best experience</span>
+        </div>
+        <button id="install-btn" class="install-btn">Install</button>
+        <button id="install-dismiss" class="install-close" aria-label="Dismiss">&times;</button>
+    </div>
+</div>
+
+<!-- ===== MAIN APP ===== -->
+<div id="app" class="app" style="display:none;">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+        <div class="topbar-l">
+            <span class="logo">🚀</span>
+            <span class="logo-text">DayPilot</span>
+        </div>
+        <div class="topbar-r">
+            <div class="topbar-level" id="topbar-level">
+                <span class="level-badge">Lv.1</span>
+                <div class="xp-mini-bar"><div class="xp-mini-fill" id="xp-mini-fill"></div></div>
+            </div>
+            <button class="topbar-btn" id="btn-settings" aria-label="Settings">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- ===== SCREENS ===== -->
+    <main class="main">
+
+        <!-- HOME SCREEN -->
+        <section id="s-home" class="screen active">
+            <!-- Greeting -->
+            <div class="hero">
+                <div class="hero-time" id="hero-time">12:00 PM</div>
+                <div class="hero-date" id="hero-date">Saturday, July 5</div>
+                <h1 class="hero-greet" id="hero-greet">Good Afternoon!</h1>
+            </div>
+
+            <!-- Streak & Power Score -->
+            <div class="quick-stats">
+                <div class="qs-card qs-streak">
+                    <div class="qs-fire" id="qs-fire">🔥</div>
+                    <div class="qs-num" id="qs-streak">0</div>
+                    <div class="qs-label">Day Streak</div>
+                </div>
+                <div class="qs-card qs-power">
+                    <div class="qs-fire">⚡</div>
+                    <div class="qs-num" id="qs-power">--</div>
+                    <div class="qs-label">Power Score</div>
+                </div>
+                <div class="qs-card qs-level">
+                    <div class="qs-fire">⭐</div>
+                    <div class="qs-num" id="qs-xp">0</div>
+                    <div class="qs-label">Total XP</div>
+                </div>
+            </div>
+
+            <!-- Daily Quote -->
+            <div class="quote-card" id="quote-card">
+                <div class="quote-icon">💬</div>
+                <p class="quote-text" id="quote-text">"Success is not final, failure is not fatal."</p>
+                <span class="quote-author" id="quote-author">— Winston Churchill</span>
+            </div>
+
+            <!-- Daily Tip -->
+            <div class="tip-card" id="tip-card">
+                <div class="tip-badge">💡 TIP OF THE DAY</div>
+                <p class="tip-text" id="tip-text">Loading tip...</p>
+            </div>
+
+            <!-- Daily Challenge -->
+            <div class="challenge-card" id="challenge-card">
+                <div class="challenge-header">
+                    <span>🎯 TODAY'S CHALLENGE</span>
+                    <span class="challenge-pts" id="challenge-pts">+25 XP</span>
+                </div>
+                <p class="challenge-text" id="challenge-text">Loading challenge...</p>
+                <button class="challenge-btn" id="challenge-accept">Accept Challenge! 💪</button>
+            </div>
+
+            <!-- Session Cards -->
+            <div class="session-cards">
+                <button class="ses-card ses-morning" id="btn-morning">
+                    <div class="ses-glow"></div>
+                    <div class="ses-icon">🌅</div>
+                    <div class="ses-info">
+                        <h3>Morning Planning</h3>
+                        <p id="morning-theme-label">Plan your tasks & targets</p>
+                    </div>
+                    <div class="ses-status" id="morning-status">Start →</div>
+                </button>
+                <button class="ses-card ses-evening" id="btn-evening">
+                    <div class="ses-glow"></div>
+                    <div class="ses-icon">🌆</div>
+                    <div class="ses-info">
+                        <h3>Evening Review</h3>
+                        <p>Review your day & track results</p>
+                    </div>
+                    <div class="ses-status" id="evening-status">Start →</div>
+                </button>
+            </div>
+
+            <!-- Today's Plan Preview -->
+            <div class="plan-preview" id="plan-preview" style="display:none;">
+                <h3>📋 Today's Plan</h3>
+                <div id="plan-preview-content"></div>
+            </div>
+
+            <!-- Recent Badge -->
+            <div class="recent-badge" id="recent-badge" style="display:none;">
+                <span class="rb-emoji" id="rb-emoji">🏅</span>
+                <div class="rb-info">
+                    <strong id="rb-name">Badge Name</strong>
+                    <span id="rb-desc">Description</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- MORNING SESSION -->
+        <section id="s-morning" class="screen">
+            <div class="ses-header morning-hdr">
+                <button class="back-btn" id="back-morning" aria-label="Back">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+                </button>
+                <div>
+                    <h2 id="morning-title">🌅 Good Morning!</h2>
+                    <p id="morning-subtitle">Let's plan an amazing day</p>
+                </div>
+            </div>
+            <div class="chat" id="morning-chat"></div>
+            <div class="input-dock" id="morning-dock">
+                <div class="input-row">
+                    <textarea id="m-input" placeholder="Type your answer..." rows="1"></textarea>
+                    <button class="send-btn" id="m-send" aria-label="Send">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    </button>
+                </div>
+                <div class="prog"><div class="prog-fill" id="m-prog"></div></div>
+                <div class="prog-label" id="m-label">Question 1 of 7</div>
+            </div>
+        </section>
+
+        <!-- EVENING SESSION -->
+        <section id="s-evening" class="screen">
+            <div class="ses-header evening-hdr">
+                <button class="back-btn" id="back-evening" aria-label="Back">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+                </button>
+                <div>
+                    <h2>🌆 Evening Review</h2>
+                    <p>Let's reflect on your day</p>
+                </div>
+            </div>
+            <!-- Plan comparison shown at top -->
+            <div class="plan-compare" id="plan-compare" style="display:none;">
+                <h4>🎯 Your Morning Plan</h4>
+                <div id="plan-compare-items"></div>
+            </div>
+            <div class="chat" id="evening-chat"></div>
+            <div class="input-dock" id="evening-dock">
+                <!-- Mood selector -->
+                <div class="mood-row" id="mood-row" style="display:none;">
+                    <button class="mood-btn" data-mood="Normal"><span class="mood-em">😐</span><span>Normal</span></button>
+                    <button class="mood-btn" data-mood="Good"><span class="mood-em">🙂</span><span>Good</span></button>
+                    <button class="mood-btn" data-mood="Very Good"><span class="mood-em">😊</span><span>V.Good</span></button>
+                    <button class="mood-btn" data-mood="Excellent"><span class="mood-em">😄</span><span>Excellent</span></button>
+                    <button class="mood-btn" data-mood="Very Happy"><span class="mood-em">🤩</span><span>V.Happy</span></button>
+                </div>
+                <!-- Rating 1-10 -->
+                <div class="rating-row" id="rating-row" style="display:none;">
+                    <div class="rating-nums" id="rating-nums"></div>
+                </div>
+                <!-- Number input -->
+                <div class="num-row" id="num-row" style="display:none;">
+                    <button class="num-adj" id="num-minus">−</button>
+                    <input type="number" id="e-num" value="0" min="0">
+                    <button class="num-adj" id="num-plus">+</button>
+                    <button class="send-btn" id="e-num-send" aria-label="Send">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    </button>
+                </div>
+                <!-- Text input -->
+                <div class="input-row" id="e-text-row" style="display:none;">
+                    <textarea id="e-input" placeholder="Type your answer..." rows="1"></textarea>
+                    <button class="send-btn" id="e-send" aria-label="Send">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    </button>
+                </div>
+                <!-- Plan check (done/partial/missed) -->
+                <div class="plan-check-row" id="plan-check-row" style="display:none;">
+                    <button class="plan-chk-btn done" data-val="done">✅ Done</button>
+                    <button class="plan-chk-btn partial" data-val="partial">🔄 Partial</button>
+                    <button class="plan-chk-btn missed" data-val="missed">❌ Missed</button>
+                </div>
+                <div class="prog"><div class="prog-fill" id="e-prog"></div></div>
+                <div class="prog-label" id="e-label">Question 1 of 9</div>
+            </div>
+        </section>
+
+        <!-- ANALYTICS SCREEN -->
+        <section id="s-analytics" class="screen">
+            <h2 class="sec-title">📊 Analytics</h2>
+
+            <!-- Period Toggle -->
+            <div class="period-toggle">
+                <button class="period-btn active" data-period="week">This Week</button>
+                <button class="period-btn" data-period="month">This Month</button>
+                <button class="period-btn" data-period="all">All Time</button>
+            </div>
+
+            <!-- Weekly Scorecard -->
+            <div class="scorecard" id="scorecard">
+                <h3>📈 Weekly Scorecard</h3>
+                <div class="sc-grid">
+                    <div class="sc-item"><span class="sc-icon">📞</span><span class="sc-val" id="sc-calls">0</span><span class="sc-lbl">Calls</span><span class="sc-change" id="sc-calls-chg"></span></div>
+                    <div class="sc-item"><span class="sc-icon">🤝</span><span class="sc-val" id="sc-clients">0</span><span class="sc-lbl">New Clients</span><span class="sc-change" id="sc-clients-chg"></span></div>
+                    <div class="sc-item"><span class="sc-icon">🔄</span><span class="sc-val" id="sc-followups">0</span><span class="sc-lbl">Follow-ups</span><span class="sc-change" id="sc-followups-chg"></span></div>
+                    <div class="sc-item"><span class="sc-icon">📋</span><span class="sc-val" id="sc-quotes">0</span><span class="sc-lbl">Quotations</span><span class="sc-change" id="sc-quotes-chg"></span></div>
+                </div>
+            </div>
+
+            <!-- Calls Bar Chart -->
+            <div class="chart-card" id="calls-chart">
+                <h3>📞 Daily Calls This Week</h3>
+                <div class="bar-chart" id="bar-chart-calls"></div>
+            </div>
+
+            <!-- Mood Trend -->
+            <div class="chart-card" id="mood-chart">
+                <h3>😊 Mood Trend</h3>
+                <div class="mood-trend" id="mood-trend"></div>
+            </div>
+
+            <!-- Rival Mode -->
+            <div class="rival-card" id="rival-card">
+                <h3>🥊 You vs Last Week</h3>
+                <div class="rival-grid" id="rival-grid"></div>
+                <div class="rival-result" id="rival-result"></div>
+            </div>
+
+            <!-- Report Card (Sunday) -->
+            <div class="report-card" id="report-card-section">
+                <h3>📊 Weekly Report Card</h3>
+                <div class="report-grades" id="report-grades"></div>
+                <div class="report-overall" id="report-overall"></div>
+            </div>
+
+            <!-- Export -->
+            <div class="export-section">
+                <button class="export-btn" id="btn-export">📥 Export to Excel (.xlsx)</button>
+                <button class="export-btn secondary" id="btn-export-csv">📄 Export CSV</button>
+            </div>
+        </section>
+
+        <!-- ACHIEVEMENTS SCREEN -->
+        <section id="s-achieve" class="screen">
+            <h2 class="sec-title">🏆 Achievements</h2>
+
+            <!-- Level Card -->
+            <div class="level-card" id="level-card">
+                <div class="lv-top">
+                    <span class="lv-num" id="lv-num">Level 1</span>
+                    <span class="lv-title" id="lv-title">Beginner</span>
+                </div>
+                <div class="lv-bar"><div class="lv-bar-fill" id="lv-bar-fill"></div></div>
+                <div class="lv-xp"><span id="lv-xp-cur">0</span> / <span id="lv-xp-max">200</span> XP</div>
+            </div>
+
+            <!-- Personal Records -->
+            <div class="records-card">
+                <h3>🏆 Personal Records</h3>
+                <div class="records-grid" id="records-grid">
+                    <div class="rec-item"><span class="rec-icon">📞</span><span class="rec-label">Most Calls/Day</span><span class="rec-val" id="rec-calls">0</span></div>
+                    <div class="rec-item"><span class="rec-icon">🤝</span><span class="rec-label">Most Clients/Day</span><span class="rec-val" id="rec-clients">0</span></div>
+                    <div class="rec-item"><span class="rec-icon">📋</span><span class="rec-label">Most Quotes/Day</span><span class="rec-val" id="rec-quotes">0</span></div>
+                    <div class="rec-item"><span class="rec-icon">🔥</span><span class="rec-label">Longest Streak</span><span class="rec-val" id="rec-streak">0</span></div>
+                    <div class="rec-item"><span class="rec-icon">⚡</span><span class="rec-label">Best Power Score</span><span class="rec-val" id="rec-power">0</span></div>
+                </div>
+            </div>
+
+            <!-- Badges -->
+            <div class="badges-card">
+                <h3>🏅 Badges</h3>
+                <div class="badges-grid" id="badges-grid"></div>
+            </div>
+        </section>
+
+        <!-- JOURNAL / HISTORY SCREEN -->
+        <section id="s-journal" class="screen">
+            <div class="journal-header">
+                <h2 class="sec-title">📖 Journal</h2>
+                <button class="clear-btn" id="btn-clear" aria-label="Clear Data">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                </button>
+            </div>
+            <div class="filter-row">
+                <button class="filter-btn active" data-f="all">All</button>
+                <button class="filter-btn" data-f="morning">🌅 Morning</button>
+                <button class="filter-btn" data-f="evening">🌆 Evening</button>
+            </div>
+            <div class="journal-list" id="journal-list">
+                <div class="empty" id="journal-empty">
+                    <div class="empty-icon">📭</div>
+                    <h3>No entries yet</h3>
+                    <p>Start a session to build your journal!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SETTINGS SCREEN -->
+        <section id="s-settings" class="screen">
+            <div class="settings-top">
+                <button class="back-btn" id="back-settings" aria-label="Back">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+                </button>
+                <h2>⚙️ Settings</h2>
+            </div>
+            <div class="settings-body">
+                <div class="set-group">
+                    <h4>👤 Profile</h4>
+                    <div class="set-item"><label>Your Name</label><input type="text" id="set-name" placeholder="Enter your name"></div>
+                </div>
+                <div class="set-group">
+                    <h4>⏰ Reminders</h4>
+                    <div class="set-item"><label>Morning Time</label><input type="time" id="set-mtime" value="07:00"></div>
+                    <div class="set-item"><label>Evening Time</label><input type="time" id="set-etime" value="18:00"></div>
+                    <div class="set-item toggle"><label>Enable Notifications</label><label class="switch"><input type="checkbox" id="set-notif"><span class="slider"></span></label></div>
+                </div>
+                <div class="set-group">
+                    <h4>🎨 Appearance</h4>
+                    <div class="set-item toggle"><label>Dark Mode</label><label class="switch"><input type="checkbox" id="set-dark" checked><span class="slider"></span></label></div>
+                </div>
+                <div class="set-group">
+                    <h4>📱 App</h4>
+                    <div class="set-item info"><span>Version</span><span>2.0.0</span></div>
+                    <div class="set-item info"><span>Data</span><span>🔒 Stored locally</span></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- BOTTOM NAV -->
+    <nav class="bnav" id="bnav">
+        <button class="bnav-btn active" data-s="home" aria-label="Home">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span>Home</span>
+        </button>
+        <button class="bnav-btn" data-s="analytics" aria-label="Analytics">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            <span>Analytics</span>
+        </button>
+        <button class="bnav-btn" data-s="achieve" aria-label="Achievements">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+            <span>Trophies</span>
+        </button>
+        <button class="bnav-btn" data-s="journal" aria-label="Journal">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/></svg>
+            <span>Journal</span>
+        </button>
+    </nav>
+</div>
+
+<!-- ===== MODALS ===== -->
+
+<!-- Completion Modal -->
+<div class="modal-bg" id="modal-complete" style="display:none;">
+    <div class="modal">
+        <div class="modal-icon" id="mc-icon">🎉</div>
+        <h2 id="mc-title">Session Complete!</h2>
+        <p id="mc-msg">Great job!</p>
+        <div class="mc-xp" id="mc-xp" style="display:none;">+0 XP earned!</div>
+        <div class="mc-summary" id="mc-summary"></div>
+        <button class="modal-main-btn" id="mc-close">Awesome! 🚀</button>
+    </div>
+</div>
+
+<!-- Badge Unlock Modal -->
+<div class="modal-bg" id="modal-badge" style="display:none;">
+    <div class="modal badge-modal">
+        <div class="badge-unlock-anim">🏅</div>
+        <h2>Badge Unlocked!</h2>
+        <div class="badge-unlock-name" id="mb-name">Badge Name</div>
+        <div class="badge-unlock-desc" id="mb-desc">Description</div>
+        <button class="modal-main-btn" id="mb-close">Collect! 🎉</button>
+    </div>
+</div>
+
+<!-- Level Up Modal -->
+<div class="modal-bg" id="modal-level" style="display:none;">
+    <div class="modal level-modal">
+        <div class="level-up-anim">🚀</div>
+        <h2>LEVEL UP!</h2>
+        <div class="level-up-num" id="ml-level">Level 2</div>
+        <div class="level-up-title" id="ml-title">Hustler</div>
+        <button class="modal-main-btn" id="ml-close">Let's Go! 💪</button>
+    </div>
+</div>
+
+<!-- Record Modal -->
+<div class="modal-bg" id="modal-record" style="display:none;">
+    <div class="modal record-modal">
+        <div class="record-anim">🏆</div>
+        <h2>NEW RECORD!</h2>
+        <p id="mr-text">You broke your personal best!</p>
+        <button class="modal-main-btn" id="mr-close">Amazing! 🔥</button>
+    </div>
+</div>
+
+<!-- Confirm Delete Modal -->
+<div class="modal-bg" id="modal-confirm" style="display:none;">
+    <div class="modal">
+        <div class="modal-icon">⚠️</div>
+        <h2>Clear All Data?</h2>
+        <p>This will permanently delete all entries, XP, and badges. This cannot be undone.</p>
+        <div class="modal-btns">
+            <button class="modal-sec-btn" id="confirm-no">Cancel</button>
+            <button class="modal-danger-btn" id="confirm-yes">Delete All</button>
+        </div>
+    </div>
+</div>
+
+<!-- Confetti Canvas -->
+<canvas id="confetti-canvas" class="confetti-canvas"></canvas>
+
+<script src="app.js"></script>
+</body>
+</html>
